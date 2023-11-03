@@ -2,6 +2,7 @@ import React, { useState,useEffect,lazy,Suspense } from 'react'
 import { Routes, Route } from "react-router-dom"
 import { useAuth } from "./contexts"
 import * as Pages from "./pages"
+import "./App.scss"
 
 const App = () => {
 
