@@ -1,7 +1,12 @@
 import React,{ useState, useEffect } from 'react'
 import "./style.scss"
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+
+  const navigate = useNavigate()
+
+
   return (
     <div id='home-wrapper'>
       <div id="home-left">
@@ -10,7 +15,8 @@ const Home = () => {
       <div id="home-right">
         <img src="./src/assets/logo_s.png" alt="logo" />
         <div className="btn-container">
-          <button id="btn-start">Start</button>
+          
+          <button id="btn-start" onClick={navigate("/play")}>Start</button>
           <button id="btn-scoreboard">Scoreboard</button>
           <button id="btn-rules">Rules</button>
         </div>

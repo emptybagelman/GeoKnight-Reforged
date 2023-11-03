@@ -13,6 +13,8 @@ const App = () => {
         <Routes>
             <Route path='/'>
                 <Route index element={<Pages.Home />} />
+                <Route path="play" element={ <Pages.Questions/> } />
+                <Route path="*" element={<Pages.NotFound/>}/>
             </Route>
         </Routes>
     </Suspense>

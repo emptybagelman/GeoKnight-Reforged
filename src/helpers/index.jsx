@@ -1,7 +1,7 @@
 import axios from "axios"
 
 let axiosInstance = axios.create({
-    baseURL: 'URL_HERE'
+    baseURL: 'localhost:5000'
 });
 
 axiosInstance.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
