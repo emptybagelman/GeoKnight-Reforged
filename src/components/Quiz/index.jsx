@@ -2,8 +2,11 @@ import React,{ useState, useEffect, useRef } from 'react'
 import { PlayerCard } from "../../components"
 import axiosInstance from '../../helpers'
 import "./style.scss"
+import { usePlayer } from '../../contexts'
 
 const Quiz = ({ difficulty, setPowerup, setCounter, counter }) => {
+
+    const { maxHp, setMaxHp, hp, setHp, atk, setAtk, score, setScore } = usePlayer()
 
     const [question,setQuestion] = useState(null)
     const [answers,setAnswers] = useState(null)
@@ -26,6 +29,29 @@ const Quiz = ({ difficulty, setPowerup, setCounter, counter }) => {
 
         if(answers[corrAns] == focusValue.textContent){
             setStyle(focusValue, corrStyle)
+            switch (difficulty) {
+                case "easy":
+                    if(hp+8 > maxHp){
+                        setHp(maxHp)
+                    }else{
+                        setHp(hp+8)
+                    }
+                    break
+
+                case "medium":
+                    setMaxHp(maxHp+4)
+                    setHp(hp+4)
+                    break
+
+                case "hard":
+                    setAtk(atk+3)
+                    break
+
+                default:
+                    break;
+            }
+            setScore(score+100)
+
         }else{
             setStyle(focusValue, incorrStyle)
 
@@ -40,7 +66,7 @@ const Quiz = ({ difficulty, setPowerup, setCounter, counter }) => {
         setTimeout(() => {
             setPowerup(null)
             setCounter(counter + 1)
-        },2000)
+        },100)
 
     }
 
@@ -56,7 +82,7 @@ const Quiz = ({ difficulty, setPowerup, setCounter, counter }) => {
         "color":"black"
     }
 
-    const defaultStlye = {
+    const defaultStyle = {
         "backgroundColor":"var(--orange)",
         "boxShadow":"0 -5px 0 0 var(--orange-shadow) inset",
         "color":"white"
@@ -76,7 +102,7 @@ const Quiz = ({ difficulty, setPowerup, setCounter, counter }) => {
 
     useEffect(() => {
         async function getRandomQuestion() {
-            const regex = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g
+            const regex = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1,]*$/g //returns true if contains only: character, accent character, comma  and space
             const resp = await axiosInstance.get(`/questions/random/${difficulty}`).then(data => {
                 const jsondata = data.data.questions
                 setQuestion(jsondata)
@@ -96,20 +122,6 @@ const Quiz = ({ difficulty, setPowerup, setCounter, counter }) => {
 
   return (
     <div className="questions-wrapper">
-        {/* <div className="questions">
-            <div className="cont">
-                <h2>Question</h2>
-                <p>{question.question}</p>
-                <div className="answers">
-                    <p>answer1</p>
-                    <p>answer2</p>
-                    <p>answer3</p>
-                    <p>answer4</p>
-                </div>
-                <button id="btn-submit">Submit</button>
-            </div>
-        </div> */}
-
         { question 
         ? 
         <div className="questions" ref={questionsRef}>

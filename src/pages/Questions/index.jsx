@@ -1,7 +1,8 @@
 import React,{ useState, useEffect } from 'react'
 import "./style.scss"
 import { useAuth } from "../../contexts"
-import { Powerup, Quiz } from "../../components"
+import { Powerup, Quiz, Battle } from "../../components"
+import { PlayerProvider } from "../../contexts"
 
 
 const Questions = () => {
@@ -11,15 +12,25 @@ const Questions = () => {
   const [counter,setCounter] = useState(0)
 
   return (
-    <div className="play-wrapper">
-      <Powerup setPowerup={setPowerup}/>
+    <PlayerProvider>
 
-      { powerup != null
-      ? <Quiz difficulty={powerup} setPowerup={setPowerup} setCounter={setCounter} counter={counter} />
-      : ""
-       }
+      {counter < 3
+      ? 
+        <div className="play-wrapper">
+          <Powerup setPowerup={setPowerup}/>
 
-    </div>
+          { powerup != null
+          ? <Quiz difficulty={powerup} setPowerup={setPowerup} setCounter={setCounter} counter={counter} />
+          : ""
+          }
+
+        </div>
+      : 
+        <div className="game-wrapper">
+          <Battle />
+        </div>
+      }
+    </PlayerProvider>
   )
 }
 

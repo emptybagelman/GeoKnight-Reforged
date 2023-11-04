@@ -1,0 +1,108 @@
+#battle-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background-image: url("./src/assets/background.png");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    .fadein{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: var(--bg);
+        animation: fadeinAnim 1s forwards;
+    }
+
+
+    p{
+        background-color: var(--orange);
+        box-shadow: 0 -10px 0 0 var(--orange-shadow) inset;
+        width: 75px;
+        font-size: 2rem;
+        padding: 20px 50px;
+        border-radius: 10px;
+        outline: solid 2px black;
+    }
+
+    #sprite-wrapper{
+        display: flex;
+        width: 100%;
+        height: 40%;
+        justify-content: center;
+        align-items: end;
+
+        .sprite{
+            width: 192px;
+            height: 192px;
+        }
+        .player{
+            background-image: url("./src/assets/knight_idle_sheet.png");
+            animation: idleAnim 0.5s steps(6) infinite;
+        }
+        .enemy{
+            background-image: url("./src/assets/enemy_idle_sheet.png");
+            animation: idleAnim 0.5s steps(6) infinite;
+        }
+    }
+
+    #typewriter{
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        P{
+            width: 70%;
+            height: 100px;
+            font-weight: normal;
+            font-size: 1rem;
+        }
+    }
+
+    .attack{
+        @extend p;
+        border: none;
+        width: auto;
+        font-family: 'Roboto Mono', monospace;
+        padding: 20px 30px;
+        font-size: 1.5rem;
+
+        &:hover{
+            background-color: var(--hover);
+            box-shadow: 0 -10px 0 0 var(--hover-shadow) inset;
+            cursor: pointer;
+        }
+    }
+}
+
+.playerAttackAnim{
+    background-image: url("./src/assets/knight_attack_sheet.png");
+    animation: attackAnim 0.3s steps(4) forwards;
+}
+
+.enemyAttackAnim{
+    background-image: url("./src/assets/enemy_attack_sheet.png");
+    animation: attackAnim 0.3s steps(4) forwards;
+}
+
+@keyframes idleAnim {
+    0% { background-position: 0 0; }
+    100% { background-position: -1152px 0; }
+}
+
+@keyframes attackAnim {
+    0% { background-position: 0 0; }
+    100% { background-position: -768px 0; }
+}
+
+@keyframes fadeinAnim{
+    0%{opacity: 1;}
+    100%{opacity: 0;display: none;}
+}
