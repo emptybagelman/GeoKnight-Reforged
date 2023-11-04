@@ -8,6 +8,12 @@
     --green-shadow: #1e6358;
     --hover: #ffe367;
     --hover-shadow: #f0c740;
+    --yellowwhite: rgb(244, 240, 231);
+    --corr: #34cb44;
+    --corr-shadow: #185d1f;
+    --incorr: #ff0008;
+    --incorr-shadow: #690003;
+
 }
 
 body{
@@ -19,4 +25,9 @@ html{
     font-size: 20px;
     font-family: 'Roboto Mono', monospace;
     background-color: var(--bg);
+
+
+    h2,h3,p{
+        user-select: none;
+    }
 }

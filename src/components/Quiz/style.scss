@@ -1,0 +1,96 @@
+.questions-wrapper{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: var(--bg);
+}
+
+.questions{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont{
+    @extend .questions;
+
+    background-color: var(--yellowwhite);
+    width: 90%;
+    height: 70%;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    h2{
+        font-size: 2rem;
+        position: relative;
+        font-weight: normal;
+        letter-spacing: -3px;
+
+        &::before, &::after{
+            content: "";
+            height: 1px;
+            width: 150%;
+            background-color: black;
+            position: absolute;
+            left: -20%;
+            margin: -10px;
+        }
+
+        &::before{
+            top: 0;
+        }
+
+        &::after{
+            bottom: 0;
+        }
+    }
+
+    div{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        p{
+            background-color: var(--orange);
+            box-shadow: 0 -5px 0 0 var(--orange-shadow) inset;
+            padding: 25px;
+            margin: 15px 40px;
+            width: 200px;
+            border-radius: 10px;
+            outline: solid 2px black;
+            text-align: center;
+            color: whitesmoke;
+            transition: 0.1s ease-in-out;
+        }
+
+        p:hover{
+            background-color: var(--hover);
+            box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
+            cursor: pointer;
+            color: black;
+        }
+
+    }
+
+    #btn-submit{
+        padding: 15px 35px;
+        color: whitesmoke;
+        background-color: var(--green);
+        box-shadow: 0 -5px 0 0 var(--green-shadow) inset;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-family: 'Roboto Mono', monospace;
+        transition: 0.1s ease-in-out;
+
+    }
+
+    #btn-submit:hover{
+        background-color: var(--hover);
+        box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
+        cursor: pointer;
+        color: black;
+    }
+}

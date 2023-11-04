@@ -6,6 +6,10 @@ const Home = () => {
 
   const navigate = useNavigate()
 
+  function navToHome(){
+    navigate("/play")
+  } 
+
 
   return (
     <div id='home-wrapper'>
@@ -16,7 +20,7 @@ const Home = () => {
         <img src="./src/assets/logo_s.png" alt="logo" />
         <div className="btn-container">
           
-          <button id="btn-start" onClick={navigate("/play")}>Start</button>
+          <button id="btn-start" onClick={navToHome}>Start</button>
           <button id="btn-scoreboard">Scoreboard</button>
           <button id="btn-rules">Rules</button>
         </div>
