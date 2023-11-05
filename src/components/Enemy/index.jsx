@@ -5,6 +5,7 @@ const Enemy = forwardRef(( props, ref ) => {
 
   const { loop } = usePlayer()
 
+  const [enemyMaxHp, setEnemyMaxHp] = useState(5)
   const [enemyHp, setEnemyHp] = useState(5)
   const [enemyAtk, setEnemyAtk] = useState(1)
 
@@ -30,7 +31,10 @@ const Enemy = forwardRef(( props, ref ) => {
     const hpGen = 4 + Math.floor(loop * 1.2)
     const atkGen = 2 + Math.floor(loop * 1.1)
 
-    setEnemyHp(randomInt(hpGen,2))
+    const hp = randomInt(hpGen,2)
+
+    setEnemyHp(hp)
+    setEnemyMaxHp(hp)
     setEnemyAtk(randomInt(atkGen,2))
 
   },[])

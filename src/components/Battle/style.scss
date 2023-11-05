@@ -54,14 +54,12 @@
 
         #s-left{
             width: 50%;
-            outline: solid 1px blue;
             display: flex;
             justify-content: flex-end;
         }
 
         #s-right{
             display: flex;
-            outline: solid 1px red;
             width: 50%;
         }
     }

@@ -18,8 +18,12 @@ const Battle = () => {
 
     const [rerender, setRerender] = useState(0)
 
+    const [enemyCounter,setEnemyCounter] = useState(0)
+
+    const [enableButton, setEnableButton] = useState(false)
+
     const textref = useRef()
-    const playerref = useRef()
+    const enemyContainerRef = useRef()
 
     function adjustDifficulty(){
         return 1 + Math.floor(loop * 0.5)
@@ -27,7 +31,8 @@ const Battle = () => {
 
     
     function runAttacks(){
-        const frontEnemy = enemyRefs.current[0].current
+        setEnableButton(true)
+        const frontEnemy = enemyRefs.current[enemyCounter].current
 
         setDoPlayerAnim(true)
         playerAttack(frontEnemy).then((result) => {
@@ -63,8 +68,7 @@ const Battle = () => {
     }
 
     function enemyAttackCheck(){
-
-        const frontEnemy = enemyRefs.current[0].current
+        const frontEnemy = enemyRefs.current[enemyCounter].current
 
         if(frontEnemy.enemyHp <= 0){
             updateRefs(frontEnemy)
@@ -75,23 +79,30 @@ const Battle = () => {
                 setCombatMessage(`Enemy did ${frontEnemy.enemyAtk} damage to GeoKnight!`)
                 setDoEnemyAnim(true)
                 enemyAttack(frontEnemy)
+                setEnableButton(false)
+
             },2000)
         }
     }
 
     function updateRefs(frontEnemy){
-        const updatedRefs = [...enemyRefs.current.slice(1)]
-        enemyRefs.current = updatedRefs
-        killEnemy(frontEnemy)
+        // const updatedRefs = [...enemyRefs.current.slice(1,)]
+        // enemyRefs.current = updatedRefs
+        setEnemyCounter(prev => prev + 1)
+        killEnemy()
     }
 
-    function killEnemy(frontEnemy){
+    function killEnemy(){
         setTimeout(() => {
             setCurrMsg("")
             setMsgIndex(0)
             setCombatMessage(`Enemy died!`)
+            enemyContainerRef.current.removeChild(enemyContainerRef.current.firstChild)
+            setEnableButton(false)
+
         },2000)
         setScore(prev => prev + 100)
+
     }
 
     function forceRerender(){
@@ -138,7 +149,7 @@ const Battle = () => {
                         <div className={doPlayerAnim ? "sprite playerAttackAnim" : "sprite player"} ></div>
                     </div>
                 </div>
-                <div id="s-right">
+                <div id="s-right" ref={enemyContainerRef}>
                     { enemyRefs.current.length > 0 && enemyRefs.current.map((ref,index) => (
                             <Enemy ref={ref} props={{ doEnemyAnim, index }}/>
                         ))
@@ -148,7 +159,7 @@ const Battle = () => {
             <div id="typewriter">
                 <p ref={textref}>{currMsg}</p>
             </div>
-            <button className="attack" onClick={runAttacks}>ATTACK</button>
+            <button className="attack" onClick={runAttacks} disabled={enableButton ? true : false } >ATTACK</button>
         </div>
     )
 }
