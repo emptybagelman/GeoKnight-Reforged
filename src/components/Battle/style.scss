@@ -29,6 +29,7 @@
         padding: 20px 50px;
         border-radius: 10px;
         outline: solid 2px black;
+        text-align: center;
     }
 
     #sprite-wrapper{
@@ -49,6 +50,19 @@
         .enemy{
             background-image: url("./src/assets/enemy_idle_sheet.png");
             animation: idleAnim 0.5s steps(6) infinite;
+        }
+
+        #s-left{
+            width: 50%;
+            outline: solid 1px blue;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #s-right{
+            display: flex;
+            outline: solid 1px red;
+            width: 50%;
         }
     }
 

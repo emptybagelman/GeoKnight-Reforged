@@ -18,10 +18,10 @@ export const PlayerProvider = ({ children }) => {
   const [hp, setHp] = useState(30)
   const [atk, setAtk] = useState(5)
   const [score, setScore] = useState(0)
-  const [loop, setLoop] = useState(0)
+  const [loop, setLoop] = useState(1)
 
   return (
-    <PlayerContext.Provider value={{ maxHp, setMaxHp, hp,setHp, atk,setAtk, score, setScore }}>
+    <PlayerContext.Provider value={{ maxHp, setMaxHp, hp,setHp, atk,setAtk, score, setScore, loop, setLoop }}>
       {children}
     </PlayerContext.Provider>
   )

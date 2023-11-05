@@ -1,16 +1,14 @@
 import React,{useState, useEffect,useRef } from 'react'
 import "./style.scss"
 import { usePlayer } from '../../contexts'
+import { Enemy } from "../../components"
 
 const Battle = () => {
 
     const { maxHp, hp, setHp, atk, score, setScore, loop, setLoop } = usePlayer()
-    const [enemy, setEnemy] = useState({
-        "id":0,
-        "hp":10,
-        "maxHp":10,
-        "atk":3
-    })
+
+    const enemyRefs = useRef([])
+
     const [combatMessage,setCombatMessage] = useState()
     const [currMsg,setCurrMsg] = useState("")
     const [msgIndex, setMsgIndex] = useState(0)
@@ -18,27 +16,86 @@ const Battle = () => {
     const [doPlayerAnim, setDoPlayerAnim] = useState(null)
     const [doEnemyAnim, setDoEnemyAnim] = useState(null)
 
+    const [rerender, setRerender] = useState(0)
+
     const textref = useRef()
     const playerref = useRef()
-    const enemyref = useRef()
 
-    function playerAttack(){
-        enemy.hp -= atk
-        setEnemy(enemy)
-        setCurrMsg("")
-        setMsgIndex(0)
-        setCombatMessage(`GeoKnight did ${atk} damage to the enemy!`)
-
-        setTimeout(() => {
-            setDoPlayerAnim(false)
-        },300)
+    function adjustDifficulty(){
+        return 1 + Math.floor(loop * 0.5)
     }
 
-    function enemyAttack(){
-        setHp(hp-enemy.atk)
+    
+    function runAttacks(){
+        const frontEnemy = enemyRefs.current[0].current
+
+        setDoPlayerAnim(true)
+        playerAttack(frontEnemy).then((result) => {
+            enemyAttackCheck()
+            console.log(result);
+        })
+
+    }
+
+    function playerAttack(frontEnemy){
+
+        return new Promise((resolve,reject) => {
+            frontEnemy.setEnemyHp(prev => {
+                const x = prev - atk
+                return x
+            })
+            setCurrMsg("")
+            setMsgIndex(0)
+            setCombatMessage(`GeoKnight did ${atk} damage to the enemy!`)
+    
+            setTimeout(() => {
+                resolve("Completed successfully")
+                setDoPlayerAnim(false)
+            },300)
+        })
+    }
+
+    function enemyAttack(frontEnemy){
+        setHp(hp-frontEnemy.enemyAtk)
         setTimeout(() => {
             setDoEnemyAnim(false)
         },300)
+    }
+
+    function enemyAttackCheck(){
+
+        const frontEnemy = enemyRefs.current[0].current
+
+        if(frontEnemy.enemyHp <= 0){
+            updateRefs(frontEnemy)
+        }else{
+            setTimeout(() => {
+                setCurrMsg("")
+                setMsgIndex(0)
+                setCombatMessage(`Enemy did ${frontEnemy.enemyAtk} damage to GeoKnight!`)
+                setDoEnemyAnim(true)
+                enemyAttack(frontEnemy)
+            },2000)
+        }
+    }
+
+    function updateRefs(frontEnemy){
+        const updatedRefs = [...enemyRefs.current.slice(1)]
+        enemyRefs.current = updatedRefs
+        killEnemy(frontEnemy)
+    }
+
+    function killEnemy(frontEnemy){
+        setTimeout(() => {
+            setCurrMsg("")
+            setMsgIndex(0)
+            setCombatMessage(`Enemy died!`)
+        },2000)
+        setScore(prev => prev + 100)
+    }
+
+    function forceRerender(){
+        setRerender(prev => prev + 1)
     }
 
     useEffect(() => {
@@ -47,7 +104,7 @@ const Battle = () => {
                 const timeout = setTimeout(() => {
                     setCurrMsg(prev => prev + combatMessage[msgIndex])
                     setMsgIndex(prev => prev + 1)
-                },50)
+                },40)
             return () => clearTimeout(timeout)
             }
 
@@ -57,28 +114,17 @@ const Battle = () => {
         
     },[msgIndex,combatMessage])
 
-    function runAttacks(){
-        setDoPlayerAnim(true)
-        playerAttack()
 
-        if(enemy.hp <= 0){
-            enemyref.current.style.display = "none"
-            setTimeout(() => {
-                setCurrMsg("")
-                setMsgIndex(0)
-                setCombatMessage(`Enemy died!`)
-            },2000)
-            setScore(prev => prev + 100)
-        }else{
-            setTimeout(() => {
-                setCurrMsg("")
-                setMsgIndex(0)
-                setCombatMessage(`Enemy did ${enemy.atk} damage to GeoKnight!`)
-                setDoEnemyAnim(true)
-                enemyAttack()
-            },2000)
+    useEffect(() => {
+        if(rerender === 0){
+            const diff = adjustDifficulty()
+            for(let i=0; i<diff;i++){
+                const newRef = React.createRef()
+                enemyRefs.current.push(newRef)
+            }
+            forceRerender()
         }
-    }
+    },[])
 
     return (
         <div id="battle-wrapper">
@@ -88,14 +134,15 @@ const Battle = () => {
                 <div id="s-left">
                     <div id="player">
                         <div className="hp">{hp}</div>
+                        <div className="atk">{atk}</div>
                         <div className={doPlayerAnim ? "sprite playerAttackAnim" : "sprite player"} ></div>
                     </div>
                 </div>
                 <div id="s-right">
-                    <div id="enemy" ref={enemyref}>
-                        <div className="hp">{enemy.hp}</div>
-                        <div className={doEnemyAnim ? "sprite enemyAttackAnim" : "sprite enemy"} ></div>
-                    </div>
+                    { enemyRefs.current.length > 0 && enemyRefs.current.map((ref,index) => (
+                            <Enemy ref={ref} props={{ doEnemyAnim, index }}/>
+                        ))
+                    }
                 </div>
             </div>
             <div id="typewriter">
