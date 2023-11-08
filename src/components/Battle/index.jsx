@@ -2,25 +2,27 @@ import React,{useState, useEffect,useRef } from 'react'
 import "./style.scss"
 import { usePlayer } from '../../contexts'
 import { Enemy } from "../../components"
+import { useNavigate } from 'react-router-dom'
 
-const Battle = () => {
+const Battle = ({ setCounter }) => {
 
     const { maxHp, hp, setHp, atk, score, setScore, loop, setLoop } = usePlayer()
+
+    const navigate = useNavigate()
 
     const enemyRefs = useRef([])
 
     const [combatMessage,setCombatMessage] = useState()
     const [currMsg,setCurrMsg] = useState("")
     const [msgIndex, setMsgIndex] = useState(0)
-
     const [doPlayerAnim, setDoPlayerAnim] = useState(null)
     const [doEnemyAnim, setDoEnemyAnim] = useState(null)
-
     const [rerender, setRerender] = useState(0)
-
     const [enemyCounter,setEnemyCounter] = useState(0)
-
     const [enableButton, setEnableButton] = useState(false)
+    const [round,setRound] = useState(0)
+
+    const [fadeAnim, setFadeAnim] = useState({"animationDirection":"normal"})
 
     const textref = useRef()
     const enemyContainerRef = useRef()
@@ -37,9 +39,13 @@ const Battle = () => {
         setDoPlayerAnim(true)
         playerAttack(frontEnemy).then((result) => {
             enemyAttackCheck()
-            console.log(result);
         })
+    }
 
+    function sendToLose(){
+        if(hp <= 0){
+            navigate("/lose")
+        }
     }
 
     function playerAttack(frontEnemy){
@@ -80,8 +86,9 @@ const Battle = () => {
                 setDoEnemyAnim(true)
                 enemyAttack(frontEnemy)
                 setEnableButton(false)
-
+                setRound(prev => prev + 1)
             },2000)
+
         }
     }
 
@@ -99,7 +106,7 @@ const Battle = () => {
             setCombatMessage(`Enemy died!`)
             enemyContainerRef.current.removeChild(enemyContainerRef.current.firstChild)
             setEnableButton(false)
-
+            endRound()
         },2000)
         setScore(prev => prev + 100)
 
@@ -107,6 +114,15 @@ const Battle = () => {
 
     function forceRerender(){
         setRerender(prev => prev + 1)
+    }
+
+    function endRound(){
+        if(enemyContainerRef.current.childNodes.length <= 0){
+            setTimeout(() => {
+                setCounter(0)
+                setLoop(prev => prev + 1)
+            },2000)
+        }
     }
 
     useEffect(() => {
@@ -126,7 +142,7 @@ const Battle = () => {
     },[msgIndex,combatMessage])
 
 
-    useEffect(() => {
+    useEffect(() => {        
         if(rerender === 0){
             const diff = adjustDifficulty()
             for(let i=0; i<diff;i++){
@@ -137,9 +153,18 @@ const Battle = () => {
         }
     },[])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setCurrMsg("")
+            setMsgIndex(0)
+            setCombatMessage(`GeoKnight, uh, fainted!`)
+            sendToLose()
+        },4000)
+    },[round])
+
     return (
         <div id="battle-wrapper">
-            <div className="fadein"></div>
+            <div className="fadein" style={fadeAnim}></div>
             <p id='score'>{score}</p>
             <div id="sprite-wrapper">
                 <div id="s-left">

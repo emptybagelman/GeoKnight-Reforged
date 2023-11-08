@@ -14,6 +14,7 @@ const App = () => {
             <Route path='/'>
                 <Route index element={<Pages.Home />} />
                 <Route path="play" element={ <Pages.Questions/> } />
+                <Route path="lose" element={ <Pages.Lose/> }/>
                 <Route path="*" element={<Pages.NotFound/>}/>
             </Route>
         </Routes>

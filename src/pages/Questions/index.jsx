@@ -12,8 +12,7 @@ const Questions = () => {
   const [counter,setCounter] = useState(0)
 
   return (
-    <PlayerProvider>
-
+    <>
       {counter < 3
       ? 
         <div className="play-wrapper">
@@ -27,10 +26,10 @@ const Questions = () => {
         </div>
       : 
         <div className="game-wrapper">
-          <Battle />
+          <Battle setCounter={setCounter}/>
         </div>
       }
-    </PlayerProvider>
+    </>
   )
 }
 

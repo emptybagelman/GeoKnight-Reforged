@@ -1,0 +1,83 @@
+.lose-wrapper{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 0.1fr;
+}
+
+#home{
+    color: black;
+}
+
+#headstone{
+    display: flex;
+    position: relative;
+
+    img{
+        width: 100%;
+        object-fit: contain;
+    }
+
+    div{
+        color: whitesmoke;
+        position: absolute;
+        top: 36%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        h2{
+            font-size: 3rem;
+            letter-spacing: -3px;
+
+        }
+        h3{
+            transform: translateY(-120%);
+            font-weight: normal;
+            letter-spacing: -2px;
+        }
+    }
+}
+
+.scoreboard{
+    display: grid;
+    grid-template-columns: 1fr 0.2fr;
+    justify-content: center;
+    padding: 2%;
+    *{
+        color: whitesmoke;
+    }
+
+    h2{
+        text-align: center;
+    }
+
+    table{
+        width: 100%;
+
+        th{
+            padding: 20px 0px;
+        }
+        // ,
+        tr{
+            text-align: center;
+            outline: solid 2px rgb(39, 31, 111);
+        }
+
+        .headers{
+            border-radius: 10px 10px 0px 0px;
+        }
+
+        td{
+            padding: 10px 0px;
+
+        }
+    }
+}
+
+.close-sec{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+}

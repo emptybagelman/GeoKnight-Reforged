@@ -27,7 +27,26 @@ html{
     background-color: var(--bg);
 
 
-    h2,h3,p{
+    h2,h3,p,img,td,tr,th{
         user-select: none;
+    }
+}
+
+button{
+    font-family: 'Roboto Mono', monospace;
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    outline: solid 2px black;
+    text-align: center;
+    background-color: var(--orange);
+    box-shadow: 0 -5px 0 0 var(--orange-shadow) inset;
+    border: none;
+    font-weight: normal;
+
+    &:hover{
+        background-color: var(--hover);
+        box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
+        cursor: pointer;
     }
 }
