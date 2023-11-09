@@ -1,3 +1,5 @@
+@import "./src/mixins/_buttons.scss";
+
 :root{
     --bg: #05031b;
     --orange: #E37100;
@@ -33,20 +35,19 @@ html{
 }
 
 button{
+    @include orange-btn-bg-5;
     font-family: 'Roboto Mono', monospace;
     padding: 20px 50px;
     font-size: 1.5rem;
     border-radius: 10px;
     outline: solid 2px black;
     text-align: center;
-    background-color: var(--orange);
-    box-shadow: 0 -5px 0 0 var(--orange-shadow) inset;
     border: none;
     font-weight: normal;
+    transition: 0.1s ease-in-out;
 
     &:hover{
-        background-color: var(--hover);
-        box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
+        @include hover-btn-bg;
         cursor: pointer;
     }
 }

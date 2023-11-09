@@ -14,9 +14,9 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const PlayerProvider = ({ children }) => {
-  const [maxHp, setMaxHp] = useState(1)
-  const [hp, setHp] = useState(1)
-  const [atk, setAtk] = useState(0)
+  const [maxHp, setMaxHp] = useState(10)
+  const [hp, setHp] = useState(10)
+  const [atk, setAtk] = useState(5)
   const [score, setScore] = useState(0)
   const [loop, setLoop] = useState(1)
 

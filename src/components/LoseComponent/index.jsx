@@ -10,7 +10,7 @@ const LoseComponent = () => {
   const navigate = useNavigate()
 
     const { user } = useAuth()
-    const { score } = usePlayer()
+    const { score,loop } = usePlayer()
   
     const [scoreboardData,setScoreboardData] = useState(null)
   
@@ -79,16 +79,20 @@ const LoseComponent = () => {
 
   return (
     <div className="lose-wrapper">
-      <div id="headstone">
-        <img src="./src/assets/headstone.png" alt="headstone" />
-        <div className="text">
-          <h2>RIP</h2>
-          <h3>{user}</h3>
-          <h4>{score}</h4>
-        </div>
 
+      { score > 0 
+      ? 
+      <div id="headstone">
+      <img src="./src/assets/headstone.png" alt="headstone" />
+      <div className="text">
+        <h2>RIP</h2>
+        <h3>{user}</h3>
+        <h4>{score}</h4>
       </div>
-      <div className="scoreboard">
+    </div>
+    : ""}
+
+      <div className="scoreboard" style={score > 0 ? {} : {"width":"90vw"}}>
         <div className="table-sec">
           <h2>Scoreboard</h2>
           <table>

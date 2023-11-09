@@ -78,7 +78,7 @@ const Quiz = ({ difficulty, setPowerup, setCounter, counter }) => {
 
     const focusStyle = {
         "backgroundColor":"var(--hover)",
-        "boxShadow":"0 -5px 0 0 var(--hover-shadow) inset",
+        "boxShadow":"0 -10px 0 0 var(--hover-shadow) inset",
         "color":"black"
     }
 

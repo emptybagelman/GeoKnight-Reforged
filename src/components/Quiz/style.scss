@@ -1,3 +1,6 @@
+@import "./src/mixins/_buttons.scss";
+@import "./src/mixins/_flex.scss";
+
 .questions-wrapper{
     position: absolute;
     left: 0;
@@ -9,20 +12,21 @@
 }
 
 .questions{
+    @include flex-full-center;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .cont{
     @extend .questions;
-
     background-color: var(--yellowwhite);
     width: 90%;
     height: 70%;
     flex-direction: column;
     justify-content: space-evenly;
+
+    p{
+        text-align: center;
+    }
 
     h2{
         font-size: 2rem;
@@ -54,8 +58,7 @@
         grid-template-columns: 1fr 1fr;
 
         p{
-            background-color: var(--orange);
-            box-shadow: 0 -5px 0 0 var(--orange-shadow) inset;
+            @include orange-btn-bg-5;
             padding: 25px;
             margin: 15px 40px;
             width: 200px;
@@ -67,8 +70,7 @@
         }
 
         p:hover{
-            background-color: var(--hover);
-            box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
+            @include hover-btn-bg;
             cursor: pointer;
             color: black;
         }
@@ -76,10 +78,9 @@
     }
 
     #btn-submit{
+        @include green-btn-bg-5;
         padding: 15px 35px;
         color: whitesmoke;
-        background-color: var(--green);
-        box-shadow: 0 -5px 0 0 var(--green-shadow) inset;
         border-radius: 10px;
         font-size: 1rem;
         font-family: 'Roboto Mono', monospace;
@@ -88,8 +89,7 @@
     }
 
     #btn-submit:hover{
-        background-color: var(--hover);
-        box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
+        @include hover-btn-bg;
         cursor: pointer;
         color: black;
     }

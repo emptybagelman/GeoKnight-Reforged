@@ -1,10 +1,12 @@
+@import "./src/mixins/_buttons.scss";
+@import "./src/mixins/_flex.scss";
+
 #player-card{
+
+    @include flex-column-full-center;
+
     color: white;
     width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
     #sprite{
         background-image: url("./src/assets/knight_idle_sheet_l.png");
@@ -16,15 +18,14 @@
     }
 
     #hp,#dmg{
+
+        @include flex-full-center;
+        @include blue-btn-bg-5;
+
         width: 10rem;
         height: 3rem;
-        background-color: var(--blue);
-        box-shadow: 0 -10px 0 0 var(--blue-shadow) inset;
         margin: 30px;
         border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         padding-bottom: 10px;
         font-size: 1.2rem;
         user-select: none;

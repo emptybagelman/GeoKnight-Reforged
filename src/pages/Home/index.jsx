@@ -2,11 +2,13 @@ import React,{ useState, useEffect } from 'react'
 import "./style.scss"
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts'
+import { usePlayer } from '../../contexts'
 
 const Home = () => {
 
   const navigate = useNavigate()
   const { user, setUser } = useAuth()
+  const { setHp, setMaxHp, setAtk, setScore, setLoop } = usePlayer()
 
   function navToHome(){
     navigate("/play")
@@ -14,6 +16,14 @@ const Home = () => {
 
   function navToScore(){
     navigate("/lose")
+  }
+
+  function reset(){
+    setHp(10)
+    setMaxHp(10)
+    setAtk(5)
+    setScore(0)
+    setLoop(1)
   }
 
   useEffect(() => {
@@ -28,7 +38,9 @@ const Home = () => {
       }
     }
     isUser()
+    reset()
   }, [])
+
 
 
   return (

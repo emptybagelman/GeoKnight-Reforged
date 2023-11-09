@@ -1,7 +1,7 @@
 import React,{useState, useEffect,useRef } from 'react'
 import "./style.scss"
 import { usePlayer } from '../../contexts'
-import { Enemy } from "../../components"
+import { Enemy, HealthBar } from "../../components"
 import { useNavigate } from 'react-router-dom'
 
 const Battle = ({ setCounter }) => {
@@ -44,6 +44,7 @@ const Battle = ({ setCounter }) => {
 
     function sendToLose(){
         if(hp <= 0){
+            setCombatMessage(`GeoKnight, uh, fainted!`)
             navigate("/lose")
         }
     }
@@ -157,7 +158,6 @@ const Battle = ({ setCounter }) => {
         setTimeout(() => {
             setCurrMsg("")
             setMsgIndex(0)
-            setCombatMessage(`GeoKnight, uh, fainted!`)
             sendToLose()
         },4000)
     },[round])
@@ -169,8 +169,7 @@ const Battle = ({ setCounter }) => {
             <div id="sprite-wrapper">
                 <div id="s-left">
                     <div id="player">
-                        <div className="hp">{hp}</div>
-                        <div className="atk">{atk}</div>
+                        <HealthBar maxhp={maxHp} hp={hp} atk={atk}/>
                         <div className={doPlayerAnim ? "sprite playerAttackAnim" : "sprite player"} ></div>
                     </div>
                 </div>

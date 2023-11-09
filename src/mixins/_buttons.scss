@@ -1,0 +1,39 @@
+@mixin orange-btn-bg-5{
+    background-color: var(--orange);
+    box-shadow: 0 -5px 0 0 var(--orange-shadow) inset;
+}
+
+@mixin hover-btn-bg-5{
+    background-color: var(--hover);
+    box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
+}
+
+@mixin blue-btn-bg-5{
+    background-color: var(--blue);
+    box-shadow: 0 -5px 0 0 var(--blue-shadow) inset;
+}
+
+@mixin green-btn-bg-5{
+    background-color: var(--green);
+    box-shadow: 0 -5px 0 0 var(--green-shadow) inset;
+}
+
+@mixin orange-btn-bg{
+    background-color: var(--orange);
+    box-shadow: 0 -10px 0 0 var(--orange-shadow) inset;
+}
+
+@mixin hover-btn-bg{
+    background-color: var(--hover);
+    box-shadow: 0 -10px 0 0 var(--hover-shadow) inset;
+}
+
+@mixin blue-btn-bg{
+    background-color: var(--blue);
+    box-shadow: 0 -10px 0 0 var(--blue-shadow) inset;
+}
+
+@mixin green-btn-bg{
+    background-color: var(--green);
+    box-shadow: 0 -10px 0 0 var(--green-shadow) inset;
+}

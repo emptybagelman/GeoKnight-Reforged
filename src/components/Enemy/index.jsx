@@ -1,5 +1,6 @@
 import React,{ useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { usePlayer } from '../../contexts'
+import { HealthBar } from "../../components"
 
 const Enemy = forwardRef(( props, ref ) => {
 
@@ -41,8 +42,7 @@ const Enemy = forwardRef(( props, ref ) => {
 
   return (
     <div key={props.index} id="enemy">
-        <div className="hp">{enemyHp}</div>
-        <div className="atk">{enemyAtk}</div>
+        <HealthBar maxhp={enemyMaxHp} hp={enemyHp} atk={enemyAtk} />
         <div className={props.doEnemyAnim ? "sprite enemyAttackAnim" : "sprite enemy"} ></div>
     </div>
   )

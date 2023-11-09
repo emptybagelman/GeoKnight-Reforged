@@ -1,12 +1,14 @@
+@import "./src/mixins/_buttons.scss";
+@import "./src/mixins/_flex.scss";
+
 #home-wrapper{
     display: flex;
 }
 
 #home-left{
+    @include flex-justify-center;
     width: auto;
     height: 100vh;
-    display: flex;
-    justify-content: center;
     overflow: hidden;
 }
 
@@ -23,18 +25,14 @@
     }
 
     .btn-container{
-        display: flex;
-        flex-direction: column;
-
+        @include flex-column;
         button{
+            @include flex-full-center;
             color: black;
             border-radius: 10px;
             border: none;
-            display: flex;
             width: 12rem; 
             height: 4rem;
-            justify-content: center;
-            align-items: center;
             font-size: 20px;
             font-family: 'Roboto Mono', monospace;
             transition: 0.1s ease-in-out;
@@ -42,28 +40,24 @@
             margin-bottom: 30px;
 
             &:nth-child(1){
-                background-color: var(--orange);
-                box-shadow: 0 -5px 0 0 var(--orange-shadow) inset;
+                @include orange-btn-bg-5;
                 transition: 0.1s ease-in-out;
             }
 
             &:nth-child(2){
-                background-color: var(--blue);
-                box-shadow: 0 -5px 0 0 var(--blue-shadow) inset;
+                @include blue-btn-bg-5;
                 transition: 0.1s ease-in-out;
             }
 
             &:nth-child(3){
-                background-color: var(--green);
-                box-shadow: 0 -5px 0 0 var(--green-shadow) inset;
+                @include green-btn-bg-5;
                 transition: 0.1s ease-in-out;
             }
         }
 
         button:hover{
+            @include hover-btn-bg;
             color: black;
-            background-color: var(--hover);
-            box-shadow: 0 -5px 0 0 var(--hover-shadow) inset;
             transition: 0.1s ease-in-out;
         }
     }

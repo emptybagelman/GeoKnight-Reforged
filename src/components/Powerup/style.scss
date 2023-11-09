@@ -1,7 +1,9 @@
+@import "./src/mixins/_buttons.scss";
+@import "./src/mixins/_flex.scss";
+
+
 #choice-screen{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-full-center;
     height: 100vh;
     position: absolute;
     left: 0;
@@ -10,12 +12,9 @@
 }
 
 #powerup-wrapper{
+    @include flex-column-full-center;
     width: 50%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
     h2{
         color: whitesmoke;
@@ -24,15 +23,13 @@
     }
 
     .powerup{
-        background-color: var(--orange);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-full-center;
+        @include orange-btn-bg-5;
         margin: 30px;
         width: 24rem;
         height: 8rem;
         border-radius: 10px;
-        box-shadow: 0 -10px 0 0 var(--orange-shadow) inset;
+        transition: 0.1s ease-in-out;
 
         img{
             width: 25%;
@@ -48,9 +45,7 @@
     }
 
     .powerup:hover{
-        background-color: var(--hover);
-        box-shadow: 0 -10px 0 0 var(--hover-shadow) inset;
+        @include hover-btn-bg;
         cursor: pointer;
-
     }
 }
